@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-center">Timeline</h1>
+
+<% @tweets.each do |tweet| %>
+<div class="card">
+  <div class="card-body">
+    <em class="card-title"><%= tweet.content %></em><br>
+    <small><%= link_to 'Show', tweet %></small>
+    <small><%= link_to 'Edit', edit_tweet_path(tweet) %></small>
+    <small><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></small>
+  </div>
+</div>
+<br>
+<% end %>
+<br>
+<%= link_to 'New Tweet', new_tweet_path, class:"btn btn-outline-primary"  %>
