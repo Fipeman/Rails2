@@ -7,7 +7,7 @@ class TweetsController < ApplicationController
   def index
     # @tweets = Tweet.all
     @tweet = Tweet.new
-    @tweets = Tweet.order(:created_at).page params[:page]
+    @tweets = Tweet.order("created_at DESC").page params[:page]
     # @tweet_avatar = @user.image_url
   end
 
@@ -74,7 +74,7 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :likes, :retweets, :user_id,
+      params.require(:tweet).permit(:content, :likes_count, :retweets_count, :user_id,
         users_attributes: [:id, :email, :name, :image_url])
     end
 end

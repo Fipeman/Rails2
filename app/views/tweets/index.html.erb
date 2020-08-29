@@ -7,12 +7,30 @@
 
 <% @tweets.each do |tweet| %>
 <div class="card container">
- <%= image_tag (tweet.user.image_url), size: '100' if tweet.user.image_url.present? %>
- <em><%= tweet.user.name %></em><%= time_ago_in_words(tweet.created_at, include_seconds: true) %>
-  <div class="card-body">
-    <em class="card-title"><%= tweet.content %></em><br>
-  </div>
-</div>
+  <div class="row no.gutters">
+    <div class="col-2">
+      <%= image_tag (tweet.user.image_url), size: '100' if tweet.user.image_url.present? %>
+    </div>  
+    <div class="col-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= tweet.user.name %></h5>
+        <p class="card-text"><%= tweet.content %></p>
+        <p class="card-text"><small class="text-muted"><%= time_ago_in_words(tweet.created_at, include_seconds: true)%></small></p>
+      </div>
+    </div>
+    <div class="col-2 align-items-center">
+    <% if current_user.present? %>
+      <%= tweet.likes.count %>
+      <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} %>
+      <% if pre_like %>
+        <%= button_to 'Unlike', tweet_like_path(tweet, pre_like), method: :delete %>
+      <% else %>
+        <%= button_to 'Like', tweet_likes_path(tweet), method: :post %>
+      <% end %>
+    <% end %>
+    </div> 
+  </div>  
+</div>   
 <br>
 <% end %>
 <%= paginate @tweets %>
