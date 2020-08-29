@@ -1,11 +1,14 @@
 class TweetsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    # @tweets = Tweet.all
+    @tweet = Tweet.new
+    @tweets = Tweet.order(:created_at).page params[:page]
+    # @tweet_avatar = @user.image_url
   end
 
   # GET /tweets/1
@@ -71,6 +74,7 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :likes, :retweets, :user_id)
+      params.require(:tweet).permit(:content, :likes, :retweets, :user_id,
+        users_attributes: [:id, :email, :name, :image_url])
     end
 end

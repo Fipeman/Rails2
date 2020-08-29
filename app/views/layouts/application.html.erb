@@ -13,7 +13,7 @@
 
   <body style="background-color: #c0deed;">
   <%= render 'shared/navbar' %>
-  <%= current_user ? "hola #{current_user.name}" : "hola extraño"%>
+  <%= current_user ? "hola #{current_user.id}#{current_user.image_url}" : "hola extraño"%>
   <br>
   <div class="container">
     <%= yield %>

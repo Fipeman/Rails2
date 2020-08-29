@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
+  <div class="form-group">
+    <%= form.label :content , "Write your Tweet!"%>
+    <%= form.text_field :content, maxlength: "120" , maxheight: "120", class:"card" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "tweet!", class:"btn btn-primary" %>
   </div>
 <% end %>

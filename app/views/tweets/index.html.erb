@@ -1,17 +1,19 @@
 <p id="notice"><%= notice %></p>
-
+<% if current_user.present? %>
+<%= render 'form', tweet: @tweet %>
+<% end %>
+<br>
 <h1 class="text-center">Timeline</h1>
 
 <% @tweets.each do |tweet| %>
-<div class="card">
+<div class="card container">
+ <%= image_tag (tweet.user.image_url), size: '100' if tweet.user.image_url.present? %>
+ <em><%= tweet.user.name %></em><%= time_ago_in_words(tweet.created_at, include_seconds: true) %>
   <div class="card-body">
     <em class="card-title"><%= tweet.content %></em><br>
-    <small><%= link_to 'Show', tweet %></small>
-    <small><%= link_to 'Edit', edit_tweet_path(tweet) %></small>
-    <small><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></small>
   </div>
 </div>
 <br>
 <% end %>
+<%= paginate @tweets %>
 <br>
-<%= link_to 'New Tweet', new_tweet_path, class:"btn btn-outline-primary"  %>

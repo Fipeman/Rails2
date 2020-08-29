@@ -6,6 +6,16 @@
 </p>
 
 <p>
+  <strong>Likes:</strong>
+  <%= @tweet.likes %>
+</p>
+
+<p>
+  <strong>Retweets:</strong>
+  <%= @tweet.retweets %>
+</p>
+
+<p>
   <strong>User:</strong>
   <%= @tweet.user_id %>
 </p>
