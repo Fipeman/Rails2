@@ -1,19 +1,18 @@
 class TweetsController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   # GET /tweets
   # GET /tweets.json
   def index
-    # @tweets = Tweet.all
     @tweet = Tweet.new
     @tweets = Tweet.order("created_at DESC").page params[:page]
-    # @tweet_avatar = @user.image_url
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+    @likes = @tweet.likes.all
   end
 
   # GET /tweets/new
@@ -33,7 +32,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
+        format.html { redirect_to tweets_url, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new }
@@ -75,6 +74,8 @@ class TweetsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def tweet_params
       params.require(:tweet).permit(:content, :likes_count, :retweets_count, :user_id,
-        users_attributes: [:id, :email, :name, :image_url])
+        users_attributes: [:id, :email, :name, :image_url],
+        likes_attributes: [:id, :tweet_id, :user_id],
+        retweets_attributes: [:id, :retweet_id, :user_id])
     end
 end

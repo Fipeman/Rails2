@@ -31,6 +31,6 @@
 
 en:
   hello: "Hello world"
-  # views:
-  #   pagination:
-  #     next: "More tweets"
+  views:
+    pagination:
+      next: "More tweets"
